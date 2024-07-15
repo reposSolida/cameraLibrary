@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">cameraLibrary</string>
+
+    <!-- Camera Screen  -->
+    <string name="no_selected_photo">No hay foto seleccionada</string>
+    <string name="camara">Camara</string>
+    <string name="galeria">Galeria</string>
+    <string name="device_without_internet_tried_to_sync">Las imágenes se guardaron con éxito en el dispositivo, se sincronizarán con la base de datos al recuperar la conexión a internet.</string>
+    <string name="categoria">Categoría</string>
+    <string name="observaciones">Observaciones</string>
+    <string name="debe_seleccionar_imagen">Debe seleccionar al menos una foto</string>
+    <string name="enviando_fotos_al_servidor">Enviando fotos al servidor…</string>
+    <string name="pics_sended_label">Imagenes enviadas!</string>
+    <string name="seleccione_categoria_label">Seleccione categoria</string>
+    <string name="no_data">N/A</string>
+
+
+    <!-- Animation text -->
+    <string name="downloading_file">Descargando documento…</string>
+    <string name="no_internet_connection">Sin conexión a internet, por favor revise su red…</string>
+
+
+</resources>
