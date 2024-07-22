@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -14,8 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
-import com.camera.model.utils.ActionType
-import com.camera.viewModel.DialogFragmentCallback
+import com.camera.presentation.viewModel.DialogFragmentCallback
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mylibrary.R
 import kotlinx.coroutines.CoroutineScope
@@ -98,7 +96,7 @@ fun Context.customInformationMsgWithAnimation(
                 }
             } catch (ex: Exception) {
                 ex.printStackTrace()
-                Log.d("error","Error in customInformationMsgWithAnimation")
+                LogError("Error in customInformationMsgWithAnimation", ex, this)
             }
         } else {
             lottieAnimationView.repeatCount = LottieDrawable.INFINITE
@@ -137,7 +135,7 @@ fun Context.customInformationMsgWithAnimation(
             }
         } catch (ex: Exception) {
             ex.printStackTrace()
-            Log.d("error","Job canceling exception")
+            LogError("Job canceling exception", ex, this)
         }
         onDialogFragmentCallback?.onFinishEditDialog(ActionType.FINISH)
     }

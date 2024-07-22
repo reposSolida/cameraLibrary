@@ -14,9 +14,11 @@ okhttp = "4.9.3"
 hilt-android = "2.44"
 hilt-compiler = "2.44"
 hilt-plugin = "2.44"
-room = "2.4.2"
+room = "2.6.1"
 roomCommon = "2.6.1"
 lottie = "5.0.3"
+navigationRuntimeKtx = "2.7.7"
+navigationFragmentKtx = "2.7.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,6 +46,8 @@ androidx-room-common = { group = "androidx.room", name = "room-common", version.
 
 # Lottie Animations
 lottie =  {group = "com.airbnb.android", name = "lottie", version.ref = "lottie"}
+androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

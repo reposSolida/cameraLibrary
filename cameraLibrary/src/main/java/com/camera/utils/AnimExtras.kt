@@ -3,7 +3,7 @@ package com.camera.utils
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import com.airbnb.lottie.LottieAnimationView
-import com.camera.viewModel.DialogFragmentCallback
+import com.camera.presentation.viewModel.DialogFragmentCallback
 import com.mylibrary.R
 
 object AnimExtras {

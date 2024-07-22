@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Title"
-                    android:textColor="@color/Black"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:text="body message"
                     android:textAlignment="center"
-                    android:textColor="@color/Black"
+                    android:textColor="@color/black"
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>

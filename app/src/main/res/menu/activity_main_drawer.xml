@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/amd_main_fragment"
+            android:checked="true"
+            android:icon="@mipmap/home"
+            android:title="Inicio" />
+        <item
+            android:id="@+id/amd_reports"
+            android:icon="@mipmap/survey"
+            android:title="Informes" />
+        <item
+            android:id="@+id/amd_informesEnLinea"
+            android:icon="@mipmap/survey"
+            android:title="Informes en linea" />
+        <item
+            android:id="@+id/amd_cobranza_del_dia"
+            android:icon="@mipmap/resumen"
+            android:title="Cobranza del dia" />
+        <item
+            android:id="@+id/amd_route_fragment"
+            android:icon="@mipmap/shoppingcartnegro"
+            android:title="Ventas" />
+        <item
+            android:id="@+id/amd_clientes"
+            android:icon="@mipmap/businessman"
+            android:title="Clientes"
+            android:visible="false" />
+        <item
+            android:id="@+id/amd_outbox"
+            android:icon="@mipmap/outbox"
+            android:title="Bandeja de salida"
+            app:actionViewClass="android.widget.TextView" />
+        <item
+            android:id="@+id/amd_gastos"
+            android:icon="@mipmap/coins"
+            android:title="Gastos" />
+        <item
+            android:id="@+id/amd_indicadores"
+            android:icon="@mipmap/prize_48"
+            android:title="Indicadores" />
+        <item
+            android:id="@+id/amd_galeria"
+            android:title="@string/Fotos" />
+        <item
+            android:id="@+id/amd_novedades"
+            android:icon="@mipmap/message"
+            android:title="Mensajes"
+            app:actionViewClass="android.widget.TextView" />
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/amd_nav_enviarlog"
+                android:title="Enviar log" />
+            <item
+                android:id="@+id/amd_nav_logout"
+                android:title="Cerrar sesión" />
+        </menu>
+    </item>
+
+</menu>
