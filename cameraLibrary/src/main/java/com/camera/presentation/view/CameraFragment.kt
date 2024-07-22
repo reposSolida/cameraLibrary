@@ -110,6 +110,24 @@ class CameraFragment : OnBtnPressListener, Fragment() {
 
         // Crear objeto en activity que observe los errores
         // TODO traer user con bundle
+        user = UserProfile(
+            "hola",
+            "hola",
+            "hola",
+            "hola",
+            "hola",
+            "hola",
+            "hola",
+            "hola",
+            true,
+            "hola",
+            true,
+            "hola",
+            "hola",
+            true,
+            true,
+            true
+        )
         viewModel.setUser(user)
         binding = FragmentCamaraBinding.inflate(layoutInflater, container, false)
         return binding.root

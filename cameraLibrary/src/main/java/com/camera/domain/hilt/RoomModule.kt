@@ -24,7 +24,6 @@ object RoomModule {
             .addMigrations(migration3to4)
             .build()
 
-
     @Singleton
     @Provides
     fun provideArchivosDao(db: PreventaDatabase) = db.getArchivosDao()

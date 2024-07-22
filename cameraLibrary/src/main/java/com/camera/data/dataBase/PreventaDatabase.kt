@@ -22,7 +22,7 @@ import com.camera.data.models.entities.PhotoEntity
         PhotoEntity::class,
         DocumentPhotosEntity::class,
         ParametrosEntity::class,
-        CategoriaEntity::class,
+        CategoriaEntity::class
     ]
 )
 abstract class PreventaDatabase : RoomDatabase(){

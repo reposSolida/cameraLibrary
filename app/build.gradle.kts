@@ -2,6 +2,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id ("kotlin-android")
+    id ("kotlin-kapt")
+    id ("dagger.hilt.android.plugin")
 }
 
 android {
@@ -54,4 +57,13 @@ dependencies {
     implementation (project(":cameraLibrary"))
 
     implementation ("com.github.livefront:bridge:v2.0.2")
+
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+
+    implementation ("com.google.android.material:material:1.8.0")
+
+    implementation ("com.github.livefront:bridge:v2.0.2")
+    kapt ("com.evernote:android-state-processor:1.4.1")
+    implementation ("com.evernote:android-state:1.4.1")
 }
