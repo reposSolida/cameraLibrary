@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
@@ -16,6 +15,8 @@ import com.airbnb.lottie.LottieDrawable
 import com.camera.presentation.viewModel.DialogFragmentCallback
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mylibrary.R
+import com.mylibrary.databinding.CustomAnimationLayoutBinding
+import com.mylibrary.databinding.CustomAnimationMultilineLayoutBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -42,17 +43,34 @@ fun Context.customInformationMsgWithAnimation(
     val builder = AlertDialog.Builder(this)
     builder.setCancelable(cancelable)
     val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    val view = if (!multiLine) inflater.inflate(R.layout.custom_animation_layout, null)
-    else inflater.inflate(R.layout.custom_animation_multiline_layout, null)
-    val lottieAnimationView = view.findViewById<LottieAnimationView>(R.id.lottieAnimationView)
-    val fab = view.findViewById<FloatingActionButton>(R.id.close_custom_fab)
 
-    if (!multiLine) {
-        view.findViewById<TextView>(R.id.header_layout_text_tv).text = title
-        view.findViewById<ImageView>(R.id.action_icon_iv)
-            .setImageResource(messageTypeIcon.SvgType())
+    val lottieAnimationView: LottieAnimationView
+    val fab: FloatingActionButton
+    val cardAnimCv: CardView
+    val msg: TextView
+
+    val view = if (!multiLine){
+        val binding = CustomAnimationLayoutBinding.inflate(inflater)
+        fab = binding.closeCustomFab
+        lottieAnimationView = binding.lottieAnimationView
+        binding.headerLayoutTextTv.text = title
+        binding.actionIconIv.setImageResource(messageTypeIcon.SvgType())
+        msg = binding.actionDescriptionChip
+        binding.root
     }
+    else {
+        val binding = CustomAnimationMultilineLayoutBinding.inflate(inflater)
+        fab = binding.closeCustomFab
+        lottieAnimationView = binding.lottieAnimationView
+        msg = binding.actionDescriptionChip
 
+        if (error) {
+            cardAnimCv = binding.cardAnimCv
+            cardAnimCv.setCardBackgroundColor(resources.getColor(R.color.card_background_color_error))
+        }
+
+        binding.root
+    }
 
     if (closeable) {
         fab.visibility = VISIBLE
@@ -60,13 +78,6 @@ fun Context.customInformationMsgWithAnimation(
         fab.visibility = GONE
     }
 
-    if (error && multiLine) {
-        val card_anim_cv = view.findViewById<CardView>(R.id.card_anim_cv)
-        card_anim_cv!!.setCardBackgroundColor(resources.getColor(R.color.card_background_color_error))
-    }
-
-
-    val msg = view.findViewById<TextView>(R.id.action_description_chip)
     msg.isSelected = true
 
     if (anim != -1) {
@@ -96,7 +107,7 @@ fun Context.customInformationMsgWithAnimation(
                 }
             } catch (ex: Exception) {
                 ex.printStackTrace()
-                LogError("Error in customInformationMsgWithAnimation", ex, this)
+                LogError("Error in customInformationMsgWithAnimation", ex)
             }
         } else {
             lottieAnimationView.repeatCount = LottieDrawable.INFINITE
@@ -135,7 +146,7 @@ fun Context.customInformationMsgWithAnimation(
             }
         } catch (ex: Exception) {
             ex.printStackTrace()
-            LogError("Job canceling exception", ex, this)
+            LogError("Job canceling exception", ex)
         }
         onDialogFragmentCallback?.onFinishEditDialog(ActionType.FINISH)
     }

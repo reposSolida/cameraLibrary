@@ -186,7 +186,7 @@ data class ProductoEntity(
             list.addAll(array.filter { it.trim().isNotEmpty() })
         } catch (ex: Exception) {
             ex.printStackTrace()
-            LogError("Error in fixedTxtGruposProductosRel", ex, context)
+            LogError("Error in fixedTxtGruposProductosRel", ex)
         }
         return list
     }

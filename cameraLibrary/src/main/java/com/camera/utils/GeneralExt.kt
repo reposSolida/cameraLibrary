@@ -152,7 +152,7 @@ private suspend fun isInternetWorking(context: Context) =
             true
         }
         catch (stoex : SocketTimeoutException){
-            LogError("Error in isInternetWorking", stoex, context)
+            LogError("Error in isInternetWorking", stoex)
             LogInfo("Dispositivo sin conexion")
             false
         }
@@ -160,7 +160,7 @@ private suspend fun isInternetWorking(context: Context) =
             throw cex
         }
         catch (ex: Exception) {
-            LogError("Error in isInternetWorking", ex, context)
+            LogError("Error in isInternetWorking", ex)
             false
         }
 }

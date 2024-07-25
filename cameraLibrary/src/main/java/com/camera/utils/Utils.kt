@@ -160,7 +160,7 @@ object Utils {
             out.close()
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
-            LogError("Error in saveFileOnly", e, context)
+            LogError("Error in saveFileOnly", e)
         }
     }
 }

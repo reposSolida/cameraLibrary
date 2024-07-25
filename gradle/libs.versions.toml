@@ -16,9 +16,10 @@ hilt-compiler = "2.46"
 hilt-plugin = "2.46"
 room = "2.6.1"
 roomCommon = "2.6.1"
-lottie = "5.0.3"
+lottie = "4.0.0"
 navigationRuntimeKtx = "2.7.7"
 navigationFragmentKtx = "2.7.7"
+glide = "4.13.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -48,6 +49,10 @@ androidx-room-common = { group = "androidx.room", name = "room-common", version.
 lottie =  {group = "com.airbnb.android", name = "lottie", version.ref = "lottie"}
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+
+# Glide
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

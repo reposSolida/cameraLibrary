@@ -14,6 +14,7 @@ import com.camera.utils.LogInfo
 import com.camera.utils.getGeneralSP
 import com.camera.utils.getPhoneImei
 import com.camera.utils.isDeviceIsConnectedToTheInternet
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.TimeoutCancellationException
 import retrofit2.Response
@@ -21,10 +22,11 @@ import retrofit2.Response
 class ParametrosRepository @Inject constructor(
     private val parametrosApi: ParametrosApi,
     private val parametrosDao: ParametrosDao,
-    private val getTableModDTUseCase: GetTableModDTUseCase
+    private val getTableModDTUseCase: GetTableModDTUseCase,
+    @ApplicationContext private val context: Context
 ) {
 
-    suspend fun getAllParametros(context: Context, user: UserProfile): WsRespuesta? {
+    suspend fun getAllParametros(user: UserProfile): WsRespuesta? {
         var wsResponse: WsRespuesta = WsRespuesta()
        
         try {
@@ -40,8 +42,7 @@ class ParametrosRepository @Inject constructor(
                         user.empId,
                         DtOper = if (getGeneralSP(context).modDT) getTableModDTUseCase.invoke(
                             user.empId.toInt(),
-                            "parametros",
-                            context
+                            "parametros"
                         ) else ""
                     ).toMap()
                 )
@@ -54,13 +55,12 @@ class ParametrosRepository @Inject constructor(
             }
                 if (parametros == null) {
                     LogInfo("No Parametros associated to User: $user")
-                    LogError("Error code: ${wsResponse?.errcod}, Error deescription: ${wsResponse?.errdsc}", context)
+                    LogError("Error code: ${wsResponse?.errcod}, Error deescription: ${wsResponse?.errdsc}")
                 } else {
 
                     LogInfo("Inserting list of ${parametros.size} parametros in the db")
                     storeParametrosInDB(
-                        parametros.map { it.toEntity() },
-                        context
+                        parametros.map { it.toEntity() }
                     )
                     LogInfo("Parametros stored in database")
                 }
@@ -69,15 +69,14 @@ class ParametrosRepository @Inject constructor(
 
         } catch (ex: Exception) {
             ex.printStackTrace()
-            LogError("Error in getAllParametros", ex, context)
+            LogError("Error in getAllParametros", ex)
         }
 
         return wsResponse
     }
 
     suspend fun storeParametrosInDB(
-        data: List<ParametrosEntity>,
-        context: Context
+        data: List<ParametrosEntity>
     ) {
         try {
 
@@ -86,21 +85,20 @@ class ParametrosRepository @Inject constructor(
 
 
         } catch (ex: Exception) {
-            LogError("Error in storeParametrosInDB: ", ex, context)
+            LogError("Error in storeParametrosInDB: ", ex)
             ex.printStackTrace()
         }
     }
 
     suspend fun getParametroByParId(
         empId: Int,
-        parId: String,
-        context: Context
+        parId: String
     ): ParametrosEntity? {
         return try {
             parametrosDao.getParametroByParId(empId, parId)
         } catch (ex: Exception) {
             ex.printStackTrace()
-            LogError("Error in getParametroByParId", ex, context)
+            LogError("Error in getParametroByParId", ex)
             if (ex is TimeoutCancellationException || ex is CancellationException) {
                 throw ex
             }
@@ -118,7 +116,7 @@ class ParametrosRepository @Inject constructor(
             parametrosDao.getParametroByParIdAndParTxt(empId, parId, parTxt)
         } catch (ex: Exception) {
             ex.printStackTrace()
-            LogError("Error in getParametroByParIdAndParTxt", ex, context)
+            LogError("Error in getParametroByParIdAndParTxt", ex)
             null
         }
 

@@ -3,13 +3,15 @@ package com.camera.utils
 import android.content.Context
 import androidx.core.content.ContextCompat.getString
 import com.mylibrary.R
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.net.SocketException
 import java.net.UnknownHostException
-
-fun evaluateIfDisplayErrorDialog(ex: Exception, context: Context) {
+@ApplicationContext
+private lateinit var context: Context
+fun evaluateIfDisplayErrorDialog(ex: Exception) {
     CoroutineScope(Dispatchers.Main).launch {
         if (AnimExtras.pair != null && AnimExtras.pair?.first != null && AnimExtras.pair?.first!!.isShowing) {
             AnimExtras.dismissData()
@@ -46,10 +48,10 @@ fun evaluateIfDisplayErrorDialog(ex: Exception, context: Context) {
     }
 }
 
-fun evaluateIfDisplayErrorDialog(msg: String, context: Context) {
+fun evaluateIfDisplayErrorDialog(msg: String) {
     CoroutineScope(Dispatchers.Main).launch {
         if (msg.contains("Error al obtener variables POST")) {
-            LogError(getString(context, R.string.device_and_server_differ_in_more_than_one_hour_label), context)
+            LogError(getString(context, R.string.device_and_server_differ_in_more_than_one_hour_label))
             AnimExtras.toggleAnimGeneric(
                 true,
                 getString(context, R.string.device_and_server_differ_in_more_than_one_hour_label),

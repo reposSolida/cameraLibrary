@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
         android:layout_width="match_parent"
@@ -23,7 +22,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         android:alpha="0.8"
-        app:headerLayout="@layout/fragment_camara"
+        app:headerLayout="@layout/nav_header_main"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

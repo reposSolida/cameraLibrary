@@ -26,7 +26,6 @@ class ArchivosRepository @Inject constructor(
 ) {
 
     suspend fun insertArchivosListApiAndDB(
-        context: Context,
         user: UserProfile,
         archivos: List<Archivo>,
         storeInDb: Boolean = true
@@ -70,7 +69,7 @@ class ArchivosRepository @Inject constructor(
                     }
                 } else {
                     if (wsResponse.errdsc.isNotEmpty()) {
-                        LogError("Error code: ${wsResponse.errcod}, Error description: ${wsResponse.errdsc}", context)
+                        LogError("Error code: ${wsResponse.errcod}, Error description: ${wsResponse.errdsc}")
                     }
                     LogInfo("Storing Archive in db without sync due to an error in the creation in the ws")
                     archivos.forEach {
@@ -92,7 +91,7 @@ class ArchivosRepository @Inject constructor(
 
         } catch (ex: Exception) {
             ex.printStackTrace()
-            LogError("Error in insertArchivosListApiAndDB", ex, context)
+            LogError("Error in insertArchivosListApiAndDB", ex)
         }
 
         return wsResponse
@@ -108,7 +107,84 @@ class ArchivosRepository @Inject constructor(
                     }
                 })
         } catch (ex: Exception) {
-            LogError("Error in storearchivosInDB: ", ex, context)
+            LogError("Error in storearchivosInDB: ", ex)
+        }
+    }
+
+    suspend fun insertArchivosApiAndDB(
+        user: UserProfile,
+        archivos: Archivo,
+        storeInDb: Boolean = true
+    ): WsRespuesta? {
+        var wsResponse = WsRespuesta()
+
+        try {
+
+            if (context.isDeviceIsConnectedToTheInternet()) {
+                LogInfo("calling insertArchivosApiAndDB  with user: ${user.username}  and company: ${user.empId} ")
+
+                val res: Response<ApiCreationResponse> =
+                    archivosApi.createArchivos(
+                        POSTPetitionBody(
+                            user.username,
+                            user.pass,
+                            getPhoneImei(context) ?: "SINIMEI",
+                            user.empId
+                        ).toMap(),
+                        listOf(archivos)
+                    )
+
+                val response = res.body()
+                val errors = response?.errors
+                val resWs = response?.sdtWSRespuesta
+                if (resWs != null) {
+                    wsResponse = resWs
+                }
+                if (errors.isNullOrEmpty() && response != null && response.quantity > 0) {
+                    LogInfo("Archivos created correctly")
+                    //traza = trazaIsSynchronize(traza)
+                    archivos.archFlgSync = SyncFlgStateType.Sincronizado.toString()
+                    archivos.archModDt = Utils.getCurrentDateAndTime()
+                    storeArchivosInDB(listOf(archivos.toEntity()))
+                    LogInfo("Archives stored in db correctly")
+                } else {
+                    if (!wsResponse.errdsc.isNullOrEmpty()) {
+                        LogError("Error code: ${wsResponse.errcod}, Error description: ${wsResponse.errdsc}")
+                    }
+                    LogInfo("Storing Archive in db without sync due to an error in the creation in the ws")
+                    archivos.archFlgSync = SyncFlgStateType.Error.toString()
+                    archivos.archModDt = Utils.getCurrentDateAndTime()
+//                    archivos. =
+//                        "Error code: ${wsResponse.errcod}, Error description: ${wsResponse.errdsc}"
+                    //   documento.docSyncIntentos = documento.docSyncIntentos + 1
+                    storeArchivosInDB(listOf(archivos.toEntity()))
+                    LogInfo("Finished storing Archive in db without sync due to an error in the creation in the ws")
+                }
+
+            } else {
+                if (storeInDb) {
+                    LogInfo("Storing Archive db without sync due to device not having internet")
+                    storeArchivosInDB(listOf(archivos.toEntity()))
+                    LogInfo("Archive stored in db correctly")
+                }
+            }
+
+
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            LogError("Error in insertArchivosApiAndDB", ex)
+        }
+
+        return wsResponse
+    }
+
+    suspend fun getAllSyncPendingFiles(): List<ArchivoEntity> {
+        return try {
+            archivosDao.getArchivosPendingToSync()
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            LogError("Error in getAllSyncPendingFiles", ex)
+            emptyList()
         }
     }
 }

@@ -1,118 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="16dp">
 
-    <RelativeLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="250dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/close_custom_fab"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/close_black"
-            app:backgroundTint="@color/white"
-            app:fabCustomSize="35dp"
-            app:maxImageSize="35dp" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:layout_centerInParent="true"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="18dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="5dp">
+            android:orientation="vertical"
+            >
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/header_layout_anim_ll"
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
+                android:layout_height="24dp"
+                android:backgroundTint="@color/white"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:id="@+id/header_layout_anim_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="18dp"
-                    android:backgroundTint="@color/white"
-                    android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/action_icon_iv"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_info_light_blue" />
 
-                    <ImageView
-                        android:id="@+id/action_icon_iv"
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="8dp"
-                        android:src="@drawable/ic_info_light_blue" />
+                <TextView
+                    android:id="@+id/header_layout_text_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Sincronizando tablas..."
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/bacground_layout_rl"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:alpha="0.4"
+                android:background="@drawable/background_blue" >
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottieAnimationView"
+                    android:layout_width="200dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/big_top_margin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView">
 
                     <TextView
-                        android:id="@+id/header_layout_text_tv"
+                        android:id="@+id/action_description_chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="8dp"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="Sincronizando tablas..."
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:padding="5dp"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="Nombre"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                        android:textSize="16sp" />
+                </androidx.cardview.widget.CardView>
 
-                <RelativeLayout
-                    android:id="@+id/bacground_layout_rl"
-                    android:layout_width="match_parent"
-                    android:layout_height="280dp"
-                    android:layout_below="@id/header_layout_anim_ll"
-                    android:alpha="0.4"
-                    android:background="@drawable/background_blue" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-                <LinearLayout
-                    android:id="@+id/progress_llayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/header_layout_anim_ll"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/close_custom_fab"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/close_black"
+        app:backgroundTint="@color/white"
+        app:fabCustomSize="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxImageSize="35dp" />
 
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="10dp"
-                    android:orientation="vertical">
-
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/lottieAnimationView"
-                        android:layout_width="200dp"
-                        android:layout_height="150dp"
-                        android:layout_gravity="center" />
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="8dp"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="5dp">
-
-                        <TextView
-                            android:id="@+id/action_description_chip"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="marquee"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
-                            android:fontFamily="sans-serif-condensed"
-                            android:marqueeRepeatLimit="marquee_forever"
-                            android:padding="5dp"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Nombre"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
-                    </androidx.cardview.widget.CardView>
-
-                </LinearLayout>
-
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-
-    </RelativeLayout>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

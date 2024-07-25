@@ -17,6 +17,7 @@ import com.camera.utils.LogInfo
 import com.camera.utils.getGeneralSP
 import com.camera.utils.getPhoneImei
 import com.camera.utils.isDeviceIsConnectedToTheInternet
+import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -25,10 +26,11 @@ class PhotosRepository @Inject constructor(
     private val photosApi: PhotosApi,
     private val photosDao: PhotosDao,
     private val getTableModDTUseCase: GetTableModDTUseCase,
+    @ApplicationContext private val context: Context
 ) {
 
     suspend fun getAllPhotos(
-        context: Context, user: UserProfile
+        user: UserProfile
     ): WsRespuesta? {
         var wsResponse: WsRespuesta = WsRespuesta()
 
@@ -46,8 +48,7 @@ class PhotosRepository @Inject constructor(
                             user.empId,
                             DtOper = if (getGeneralSP(context).modDT) getTableModDTUseCase.invoke(
                                 user.empId.toInt(),
-                                "photos",
-                                context
+                                "photos"
                             ) else ""
                         ).toMap()
                     )
@@ -61,14 +62,13 @@ class PhotosRepository @Inject constructor(
                 if (photos == null) {
                     LogInfo("No Photos associated to User: $user")
                     if (!wsResponse.errdsc.isNullOrEmpty()) {
-                        LogError("Error code: ${wsResponse?.errcod}, Error description: ${wsResponse?.errdsc}", context)
+                        LogError("Error code: ${wsResponse?.errcod}, Error description: ${wsResponse?.errdsc}")
                     }
                 } else {
 
                     LogInfo("Inserting list of ${photos.size} Photos in the db")
                     storePhotosInDB(
-                        photos.map { it.toEntity() },
-                        context
+                        photos.map { it.toEntity() }
                     )
                     LogInfo("Photos stored in database")
                 }
@@ -77,14 +77,13 @@ class PhotosRepository @Inject constructor(
 
         } catch (ex: Exception) {
             ex.printStackTrace()
-            LogError("Error in getAllPhotos", ex, context)
+            LogError("Error in getAllPhotos", ex)
         }
 
         return wsResponse
     }
 
     suspend fun insertPhotosApiAndDB(
-        context: Context,
         user: UserProfile,
         photos: List<Photo>,
         storeInDb: Boolean = true
@@ -120,25 +119,25 @@ class PhotosRepository @Inject constructor(
                         photo.fotoFlgSync = SyncFlgStateType.Sincronizado.toString()
                         photo.fotoModdt = Utils.getCurrentDateAndTime()
                     }
-                    storePhotosInDB(photos.map { it.toEntity() }, context)
+                    storePhotosInDB(photos.map { it.toEntity() })
                     LogInfo("Photos stored in db correctly")
                 } else {
                     if (!wsResponse.errdsc.isNullOrEmpty()) {
-                        LogError("Error code: ${wsResponse.errcod}, Error description: ${wsResponse.errdsc}", context)
+                        LogError("Error code: ${wsResponse.errcod}, Error description: ${wsResponse.errdsc}")
                     }
                     LogInfo("Storing Photo in db without sync due to an error in the creation in the ws")
                     photos.forEach { photo ->
                         photo.fotoFlgSync = SyncFlgStateType.Error.toString()
                         photo.fotoModdt = Utils.getCurrentDateAndTime()
                     }
-                    storePhotosInDB(photos.map { it.toEntity() }, context)
+                    storePhotosInDB(photos.map { it.toEntity() })
                     LogInfo("Finished storing Photo in db without sync due to an error in the creation in the ws")
                 }
 
             } else {
                 if (storeInDb) {
                     LogInfo("Storing Photo db without sync due to device not having internet")
-                    storePhotosInDB(photos.map { it.toEntity() }, context)
+                    storePhotosInDB(photos.map { it.toEntity() })
                     LogInfo("Photo stored in db correctly")
                 }
             }
@@ -146,56 +145,53 @@ class PhotosRepository @Inject constructor(
 
         } catch (ex: Exception) {
             ex.printStackTrace()
-            LogError("Error in insertPhotosApiAndDB", ex, context)
+            LogError("Error in insertPhotosApiAndDB", ex)
         }
 
         return wsResponse
     }
 
-    suspend fun getAllPhotosSyncPendingFiles(context: Context): List<PhotoEntity> {
+    suspend fun getAllPhotosSyncPendingFiles(): List<PhotoEntity> {
         return try {
             photosDao.getPhotosPendingToSync()
         } catch (ex: Exception) {
             ex.printStackTrace()
-            LogError("Error in getAllPhotosSyncPendingFiles", ex, context )
+            LogError("Error in getAllPhotosSyncPendingFiles", ex)
             emptyList()
         }
     }
 
     //get all photos by id
-    suspend fun getAllPhotosById(ids: List<String>, context: Context): List<PhotoEntity> {
+    suspend fun getAllPhotosById(ids: List<String>): List<PhotoEntity> {
         return try {
             photosDao.getAllPhotosById(ids)
         } catch (ex: Exception) {
             ex.printStackTrace()
-            LogError("Error in getAllPhotosById", ex, context)
+            LogError("Error in getAllPhotosById", ex)
             emptyList()
         }
     }
 
     suspend fun storePhotosInDB(
-        data: List<PhotoEntity>,
-        context: Context
+        data: List<PhotoEntity>
     ) {
         LogInfo("Inserting ${data.size} photos in database")
         try {
             photosDao.insert(data)
             LogInfo("Photos inserted correctly")
         } catch (ex: Exception) {
-            LogError("Error in storePhotosInDB: ", ex, context)
+            LogError("Error in storePhotosInDB: ", ex)
         }
 
     }
 
 
-    suspend fun deletePhotoById(empId: Int, photoId: String, context: Context) {
+    suspend fun deletePhotoById(empId: Int, photoId: String) {
         try {
             photosDao.deletePhotoById(empId, photoId)
         } catch (ex: Exception) {
             ex.printStackTrace()
-            LogError("Error in deletePhotoById", ex, context)
+            LogError("Error in deletePhotoById", ex)
         }
     }
-
-
 }

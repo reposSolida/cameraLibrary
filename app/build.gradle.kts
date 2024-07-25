@@ -5,6 +5,7 @@ plugins {
     id ("kotlin-android")
     id ("kotlin-kapt")
     id ("dagger.hilt.android.plugin")
+    id ("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -37,6 +38,12 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    viewBinding{
+        viewBinding{
+            enable = true
+        }
+    }
 }
 
 dependencies {
@@ -47,6 +54,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
+    implementation ("androidx.navigation:navigation-ui-ktx:2.5.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,4 +74,6 @@ dependencies {
     implementation ("com.github.livefront:bridge:v2.0.2")
     kapt ("com.evernote:android-state-processor:1.4.1")
     implementation ("com.evernote:android-state:1.4.1")
+
+
 }

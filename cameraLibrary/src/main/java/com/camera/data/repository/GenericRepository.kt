@@ -11,7 +11,7 @@ import javax.inject.Inject
 class GenericRepository @Inject constructor(
     private val genericDao: GenericDao
 ) {
-    suspend fun getTableModDT(empId: Int, tableName: String, context: Context): String? {
+    suspend fun getTableModDT(empId: Int, tableName: String): String? {
         return try {
             var stringBuilder =
                 StringBuilder("SELECT modDT FROM $tableName where EmpId=$empId order by EmpId, modDT desc limit 1")
@@ -19,7 +19,7 @@ class GenericRepository @Inject constructor(
             genericDao.getTableModDT(SimpleSQLiteQuery(stringBuilder.toString()))
         } catch (ex: Exception) {
             ex.printStackTrace()
-            LogError("Error in getCicloByEmpId: ", ex, context)
+            LogError("Error in getCicloByEmpId: ", ex)
             null
         }
     }

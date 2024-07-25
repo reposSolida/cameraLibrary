@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.hilt)
     id("kotlin-kapt")
+    id ("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -77,8 +78,8 @@ dependencies {
     implementation (libs.lottie)
 
     // Glide
-    implementation ("com.github.bumptech.glide:glide:4.13.2")
-    kapt ("com.github.bumptech.glide:compiler:4.13.2")
+    implementation (libs.glide)
+    kapt (libs.glide.compiler)
 
     // CrashLYtics
     implementation ("com.google.firebase:firebase-crashlytics:18.4.0")
@@ -93,7 +94,6 @@ dependencies {
     // Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-
 }
 
 // Allow references to generated code

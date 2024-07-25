@@ -1,10 +1,9 @@
 package com.camera.domain.useCases
 
-import android.content.Context
 import com.camera.data.repository.CategoriasRepository
 import javax.inject.Inject
-class GetAllCategoriasDBUseCase @Inject constructor(val categoriasRepository: CategoriasRepository) {
+class GetAllCategoriasDBUseCase @Inject constructor(private val categoriasRepository: CategoriasRepository) {
 
-    suspend operator fun invoke(context: Context) =
-        categoriasRepository.getAllCategoriesDB(context)
+    suspend operator fun invoke() =
+        categoriasRepository.getAllCategoriesDB()
 }
