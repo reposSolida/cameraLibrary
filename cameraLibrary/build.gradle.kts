@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.hilt)
     id   ("kotlin-kapt")
-    id   ("maven-publish")
+    `maven-publish`
 }
 
 android {
@@ -104,16 +104,15 @@ kapt {
     correctErrorTypes = true
 }
 
-
 afterEvaluate {
     publishing {
         publications {
-            create<MavenPublication>("release") {
-                from(components["release"])
-
+            create<MavenPublication>("maven") {
                 groupId = "com.github.reposSolida"
                 artifactId = "cameraLibrary"
-                version = "1.0.2"
+                version = "1.0.3"
+
+                from(components["release"])
             }
         }
     }
