@@ -1,9 +1,11 @@
+import io.grpc.internal.SharedResourceHolder.release
+
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.hilt)
-    id("kotlin-kapt")
-    id ("androidx.navigation.safeargs.kotlin")
+    id   ("kotlin-kapt")
+    id   ("maven-publish")
 }
 
 android {
@@ -100,4 +102,19 @@ dependencies {
 // Allow references to generated code
 kapt {
     correctErrorTypes = true
+}
+
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+
+                groupId = "com.github.reposSolida"
+                artifactId = "cameraLibrary"
+                version = "1.0.2"
+            }
+        }
+    }
 }
