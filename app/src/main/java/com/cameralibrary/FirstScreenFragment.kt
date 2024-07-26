@@ -52,11 +52,13 @@ class FirstScreenFragment : Fragment() {
         //setActiviyBackFragment(R.id.amd_fragment_client_visitation)  TODO
 
         binding.btnCamera.setOnClickListener {
-            val action = FirstScreenFragmentDirections.actionFirstScreenFragmentToCameraFragment(
-                userProfile.toJson(),
-                "A_SUC_GEN"
-                )
-            findNavController().navigate(action)
+            val userProfileJson = userProfile.toJson()
+            val bundle = Bundle().apply {
+                putString("jsonUserProfile", userProfileJson)
+                putString("cliLOCID", "A_SUC_GEN")
+            }
+
+            findNavController().navigate(R.id.action_firstScreenFragment_to_cameraFragment, bundle)
         }
 
 

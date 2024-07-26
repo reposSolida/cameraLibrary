@@ -107,6 +107,7 @@ class CameraFragment : OnBtnPressListener, Fragment() {
         val jsonUSer = arguments?.getString("jsonUserProfile") ?: ""
         val cliLOCID = arguments?.getString("cliLOCID") ?: ""
 
+
         user = Gson().fromJson(jsonUSer, UserProfile::class.java)
 
         UserSessionData.user = user

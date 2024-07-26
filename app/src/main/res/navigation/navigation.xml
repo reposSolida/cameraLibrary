@@ -23,12 +23,6 @@
         android:label="CameraFragment"
         tools:layout="@layout/fragment_camara"
         >
-        <argument
-            android:name="jsonUserProfile"
-            app:argType="string" />
-        <argument
-            android:name="cliLOCID"
-            app:argType="string" />
     </fragment>
 
 </navigation>
