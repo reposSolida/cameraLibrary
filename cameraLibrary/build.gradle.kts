@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -62,7 +63,7 @@ dependencies {
     // Service Dependencies
     implementation(libs.gson)
     implementation(libs.okhttp)
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    implementation (libs.interceptor)
 
     // Hilt
     implementation(libs.hilt.android)
@@ -82,14 +83,14 @@ dependencies {
     kapt (libs.glide.compiler)
 
     // CrashLYtics
-    implementation ("com.google.firebase:firebase-crashlytics:18.4.0")
-    implementation ("com.google.firebase:firebase-analytics:21.3.0")
+    implementation ("com.google.firebase:firebase-crashlytics:19.0.3")
+    implementation ("com.google.firebase:firebase-analytics:22.0.2")
 
     // Timber
     implementation ("com.jakewharton.timber:timber:5.0.1")
 
     // Fragments
-    implementation ("androidx.fragment:fragment-ktx:1.5.7")
+    implementation ("androidx.fragment:fragment-ktx:1.8.1")
 
     // Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
