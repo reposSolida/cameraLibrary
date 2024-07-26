@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">cameraLibrary</string>
+
+    <!-- App values -->
+    <string name="file_provider_authority" translatable="false">com.solidatec.epv.fileprovider</string>
+
+    <!-- Camera Screen  -->
+    <string name="no_selected_photo">No hay foto seleccionada</string>
+    <string name="camara">Camara</string>
+    <string name="galeria">Galeria</string>
+    <string name="device_without_internet_tried_to_sync">Las imágenes se guardaron con éxito en el dispositivo, se sincronizarán con la base de datos al recuperar la conexión a internet.</string>
+    <string name="categoria">Categoría</string>
+    <string name="observaciones">Observaciones</string>
+    <string name="debe_seleccionar_imagen">Debe seleccionar al menos una foto</string>
+    <string name="enviando_fotos_al_servidor">Enviando fotos al servidor…</string>
+    <string name="pics_sended_label">Imagenes enviadas!</string>
+    <string name="seleccione_categoria_label">Seleccione categoria</string>
+    <string name="no_data">N/A</string>
+    <string name="agregar_comentario">Agregar comentario</string>
+
+
+    <!-- Animation text -->
+    <string name="downloading_file">Descargando documento…</string>
+    <string name="no_internet_connection">Sin conexión a internet, por favor revise su red…</string>
+    <string name="connectivity_error_msg_label">Ha ocurrido un error de conectividad, por favor revise su conexión a internet e intentelo nuevamente.\nSi el error persiste, por favor comuniquese con soporte.</string>
+    <string name="error_occurred_try_again_label">Ha ocurrido un error, por favor espere unos segundos e intente sincronizar la información nuevamente.\nSi el error persiste, por favor comuniquese con soporte.</string>
+    <string name="sending_pending_photos_to_server_label">Enviando fotos pendientes al servidor...</string>
+    <string name="was_not_possible_to_send_pics_label">No fue posible enviar las imágenes al servidor</string>
+    <string name="device_and_server_differ_in_more_than_one_hour_label">Ha ocurrido un error en la sincronización. El dispositivo y el servidor difieren en más de una hora.</string>
+    <string name="permisos_necesarios">Permisos necesarios no habilitados, por favor habilitelos e intente nuevamente</string>
+    <string name="close_button_desc">close</string>
+
+
+
+</resources>
