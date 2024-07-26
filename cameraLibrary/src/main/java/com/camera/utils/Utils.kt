@@ -104,8 +104,7 @@ object Utils {
      * Este metodo crea un archivo en la memoria del dispositivo con la informacion de la imagen pero sin almacenar la imagen
      */
     fun enviarFoto(
-        pair: Pair<PhotoEntity, Bitmap>,
-        context: Context? = null
+        pair: Pair<PhotoEntity, Bitmap>
     ): Pair<String, File> {
         val loaclPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
         val root = loaclPath.absolutePath
@@ -113,7 +112,6 @@ object Utils {
         myDir.mkdirs()
 
         val newFileName = pair.first.fotoID
-        val imagepath = "$root/$newFileName.jpeg"
         val file = File(myDir, "$newFileName.jpeg")
 
         return Pair(newFileName, file)
@@ -151,7 +149,7 @@ object Utils {
      * Convierto la imagen de bitmap a un archivo jpeg y la almaceno en el archivo pasado por parametro
      * Para regular la calidad de comprecion del archivo modificar compressionQuality, 0 es mas comprimido/menor callidad
      */
-    fun saveFileOnly(sourceUri: Bitmap, destination: File, context: Context) {
+    fun saveFileOnly(sourceUri: Bitmap, destination: File) {
         try {
             val out = FileOutputStream(destination)
             val compresionQuality = 20

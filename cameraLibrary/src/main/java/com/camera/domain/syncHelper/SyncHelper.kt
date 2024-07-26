@@ -225,7 +225,7 @@ class SyncHelper @Inject constructor (
             val res = Utils.enviarFoto(pair)
 
             // Convierto la imagen de bitmap a jpeg y la almaceno en el archivo creado
-            Utils.saveFileOnly(pair.second, res.second, context)
+            Utils.saveFileOnly(pair.second, res.second)
 
             val archivo = Utils.generarRegistroArchivo(
                 SyncFlgStateType.Pendiente.toString(),
