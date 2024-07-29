@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Este fragmento es parte de la libreria de camamra -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
