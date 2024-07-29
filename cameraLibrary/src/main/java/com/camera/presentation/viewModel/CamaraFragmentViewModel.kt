@@ -200,7 +200,7 @@ class CamaraFragmentViewModel @Inject constructor (
         val photoName = "${Utils.getCurrentDateAndTime()}.jpg"
         val storageDir = context.getExternalFilesDir(null)
         val photoFile = File(storageDir, photoName)
-        val authority = "${context.packageName}.fileprovider"
+        val authority = "com.cameralibrary.fileprovider"
         return FileProvider.getUriForFile(
             context,
             authority,

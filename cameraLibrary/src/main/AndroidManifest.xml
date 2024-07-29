@@ -19,7 +19,7 @@
 
     <application>
         <provider
-            android:name="androidx.core.content.FileProvider"
+            android:name="com.camera.utils.CameraFileProvider"
             android:authorities="com.cameralibrary.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
